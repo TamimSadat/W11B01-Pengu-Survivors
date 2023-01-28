@@ -131,7 +131,15 @@ public class FlowGraph {
 	 */
 	public int calcAugmentingFlow(List<Vertex> path) {
 		// TODO
-		return Integer.MIN_VALUE;
+		int flow = 0;
+		int counter = 0;
+		while (counter < path.size() - 1) {
+			Vertex current = path.get(counter);
+			Vertex next = path.get(counter + 1);
+			flow = current.residual.get(next).getCapacity();
+			counter++;
+		}
+		return flow;
 	}
 
 	/**
