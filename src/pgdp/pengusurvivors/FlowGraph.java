@@ -99,6 +99,17 @@ public class FlowGraph {
 	public void generateResidualGraph() {
 		clearResidualGraph();
 		// TODO
+		for (Vertex vertex : vertices) {
+			for (Vertex neighbour : vertex.neighbours.keySet()) {
+				int capacity = vertex.neighbours.get(neighbour).getCapacity();
+				int flow = vertex.neighbours.get(neighbour).getFlow();
+				if (flow <= capacity) {
+					vertex.residual.put(neighbour, new Edge(capacity - flow));
+				}
+				capacity = flow;
+				neighbour.residual.put(vertex, new Edge(capacity));
+			}
+		}
 	}
 
 	/**
